@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 html {
@@ -14,8 +15,14 @@ body {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    background-color: #528e2b;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
 }
 
 canvas {
-    margin-top: 80px;
+    cursor:none;
 }
