@@ -15,6 +15,7 @@ let canvas = document.querySelector('canvas'),
         [1622, 0],
         [1366, 256]
     ],
+    emplacements = [115,415,715,1015],
     emplacement = [],
     vitesse = [],
     voiture = [],
@@ -59,7 +60,7 @@ const render = () => {
         if (init) {
 
             for (let i = 1; i < 4; i++) {
-                c.drawImage(img, ...voitures[voiture[i]] , 256, 256, emplacement[i] /*x*/, speed*index*3 % (canvas.height+250) - 250 /*y*/, 256, 256);
+                c.drawImage(img, ...voitures[voiture[i]] , 256, 256, emplacements[emplacement[i]] /*x*/, speed*index*3 % (canvas.height+250) - 250 /*y*/, 256, 256);
             }
 
             if (speed*index*3 % (canvas.height+250) - 250 < -240) {
@@ -96,17 +97,18 @@ function voitureClientX() {
 
 function setup() {
     init = true;
+    emplacement = [];
+    let nombre = [0,1,2,3];
+
     for (let i = 1; i < 4; i++) {
-        voiture[i] = Math.floor(Math.random() * 5);
-        emplacement[i] = Math.floor(Math.random() * 1000);
 
+        voiture[i] = Math.floor(Math.random() * voitures.length);
 
-       /*if (i > 1) {
-            while (emplacement[i] - emplacement[--i] > -240 && emplacement[i] - emplacement[--i] < 240) {
-                emplacement[i] = Math.floor(Math.random() * 1000);
-            }
-        }*/
-        
+        temp = 2;
+        emplacement[i] = nombre[temp];
+        nombre.splice(0,temp);
+        console.log(nombre.length);
+    
     }
 
 }
