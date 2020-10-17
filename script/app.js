@@ -13,13 +13,14 @@ let canvas = document.querySelector('canvas'),
         [1366, 256],
         [1366, 512],
         [1622, 0],
-        [1366, 256]
+        [1622, 256]
     ],
     emplacements = [115,415,715,1015],
     emplacement = [],
     vitesse = [],
     voiture = [],
     score,
+    audio_explosion = new Audio("assets/sound/explosion.mp3"),
     soustraction,
     init = false;
 
@@ -59,15 +60,32 @@ const render = () => {
     
         if (init) {
 
+            let hauteur = speed*index*3 % (canvas.height+250) - 250;
+
             for (let i = 1; i < 4; i++) {
-                c.drawImage(img, ...voitures[voiture[i]] , 256, 256, emplacements[emplacement[i]] /*x*/, speed*index*3 % (canvas.height+250) - 250 /*y*/, 256, 256);
+                c.drawImage(img, ...voitures[voiture[i]] , 256, 256, emplacements[emplacement[i]] /*x*/, hauteur /*y*/, 256, 256);
+
+                // SI COLLISION
+                if (hauteur > 260 && hauteur < 670) {
+                    if (voitureClientX() > emplacements[emplacement[i]] - 128 && voitureClientX() < emplacements[emplacement[i]] + 128) {
+                        c.drawImage(img, 1622, 512, 256, 256, voitureClientX(), 460, 256, 256);
+                        audio_explosion.play();
+                        gamePlaying = false;
+                        score = 0;
+                    }
+                }
             }
 
-            if (speed*index*3 % (canvas.height+250) - 250 < -240) {
+            if (hauteur < -240) {
                 init = 0;
                 setup();
             }
+
+        } else {
+
         }
+            // en gros quand la hauteur est identique on regarde si notre voiture fait parti des emplacements
+
         
         bestScore = Math.floor(Math.max(bestScore, index/2));
         score = Math.floor(index/2);
@@ -100,22 +118,26 @@ function setup() {
     emplacement = [];
     let nombre = [0,1,2,3];
 
-    for (let i = 1; i < 4; i++) {
-
+    for (let i = 1; i < 5; i++) {
         voiture[i] = Math.floor(Math.random() * voitures.length);
-
-        temp = 2;
-        emplacement[i] = nombre[temp];
-        nombre.splice(0,temp);
-        console.log(nombre.length);
-    
     }
+
+    for (let i = 0; i < 4; i++) {
+        let aleat = Math.floor(Math.random() * nombre.length);
+        emplacement[i] = nombre[aleat];
+        nombre.splice(aleat,1);
+    }
+
+
 
 }
 
-
-
-canvas.addEventListener('click', () => {if (gamePlaying == false) {gamePlaying = true; setup()}});
+canvas.addEventListener('click', () => {
+    if (gamePlaying == false) {
+        gamePlaying = true;
+        setup();
+    }
+});
 
 img.onload = render;
 

@@ -25,4 +25,11 @@ body, html {
 
 canvas {
     cursor:none;
+    position: relative;
+}
+
+#accueil {
+    z-index: 1;
+    position: absolute;
+    top: 0;
 }
