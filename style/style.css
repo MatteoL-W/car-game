@@ -24,12 +24,15 @@ body, html {
 }
 
 canvas {
-    cursor:none;
     position: relative;
 }
 
-#accueil {
-    z-index: 1;
+#voitures {
     position: absolute;
-    top: 0;
+    top: 270px;
+    left: 150px
+}
+
+#voitures img {
+    width: 200px;
 }
