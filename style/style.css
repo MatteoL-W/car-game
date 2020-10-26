@@ -36,3 +36,18 @@ canvas {
 #voitures img {
     width: 200px;
 }
+
+#difficultes {
+    position: absolute;
+    top: 550px;
+    left: calc(50% - 250px);
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    width: 500px;
+}
+
+#difficultes input {
+    font-size: 2rem;
+    padding: 10px;
+}
