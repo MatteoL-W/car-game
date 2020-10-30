@@ -30,7 +30,7 @@ canvas {
 #voitures {
     position: absolute;
     top: 270px;
-    left: 150px
+    left: calc(50% - 600px);
 }
 
 #voitures img {

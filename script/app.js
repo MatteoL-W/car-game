@@ -1,21 +1,11 @@
 /* VARIABLES */
 
-const img = new Image();
-      img.src = 'assets/canvas/bg-default.png',
-      audio_explosion = new Audio("assets/sound/explosion.mp3"),
-      voitures = [
-        [1366, 0],
-        [1366, 256],
-        [1366, 512],
-        [1622, 0],
-        [1622, 256],
-        [1878, 0]],
-    emplacements = [115,415,715,1015],
-    emplacementsTP = [265,557,848],
+const audio_explosion = new Audio("assets/sound/explosion.mp3"),
     divVoitures = document.getElementById('voitures'),
     divDifficultes = document.getElementById('difficultes');
 
 let canvas = document.querySelector('canvas'),
+    img = new Image(),
     c = canvas.getContext('2d'),
     gamePlaying = false,
     index = 1,
@@ -31,9 +21,48 @@ let canvas = document.querySelector('canvas'),
     init = false,
     myCar = voitures[0];
 
+if (window.innerWidth < 1400) {
+    canvas.width = 1366;
+    canvas.height = 766;
+    voitures = [
+        [1366, 0],
+        [1366, 256],
+        [1366, 512],
+        [1622, 0],
+        [1622, 256],
+        [1878, 0]],
+    emplacements = [115,415,715,1015],
+    moto = [1878,256],
+    emplacementsTP = [265,557,848];
+    img.src = 'assets/canvas/bg-default.png';
 
-canvas.width = 1366;
-canvas.height = 766;
+    function voitureClientX() {
+        if (clientX < 150 + (window.innerWidth - canvas.width)/2) return 150 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
+        else if (clientX > 1250 + (window.innerWidth - canvas.width)/2) return 1250 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
+        else return clientX - 128 - (window.innerWidth - canvas.width)/2;
+    }
+} else {
+    voitures = [
+        [1621, 0],
+        [1621, 256],
+        [1621, 512],
+        [1878, 0],
+        [1878, 256],
+        [1878, 0]],
+    emplacements = [155,515,855,1205],
+    moto = [2134,256],
+    emplacementsTP = [338,687,1034];
+    canvas.width = 1620;
+    canvas.height = 912;
+    img.src = 'assets/canvas/bg-default-2.png';
+
+    function voitureClientX() {
+        if (clientX < 150 + (window.innerWidth - canvas.width)/2) return 150 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
+        else if (clientX > 1500 + (window.innerWidth - canvas.width)/2) return 1500 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
+        else return clientX - 128 - (window.innerWidth - canvas.width)/2;
+    }
+}
+
 
 /* AUGMENTATION DE LA VITESSE */
 
@@ -63,7 +92,7 @@ const render = () => {
             let hauteur = speed*index*difficulteTab[2] % (canvas.height+250) - 250;
 
             for (let i = 0; i < 3; i++) {
-                c.drawImage(img, 1878, 256, 256, 256, emplacementsTP[i], hauteur, 256, 256);
+                c.drawImage(img, ...moto, 256, 256, emplacementsTP[i], hauteur, 256, 256);
 
                 if (hauteur > 260 && hauteur < 670) {
                     if (voitureClientX() > emplacementsTP[i] - 50 && voitureClientX() < emplacementsTP[i] + 50) {
@@ -124,11 +153,9 @@ document.addEventListener("mousemove", function(e) {
 });
 
 /* NE PAS DEPASSER DU CADRE */
-function voitureClientX() {
-    if (clientX < 150 + (window.innerWidth - canvas.width)/2) return 150 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
-    else if (clientX > 1250 + (window.innerWidth - canvas.width)/2) return 1250 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
-    else return clientX - 128 - (window.innerWidth - canvas.width)/2;
-}
+
+
+
 
 function setup() {
     canvas.style.cursor = 'none';
