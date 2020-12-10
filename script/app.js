@@ -3,6 +3,7 @@
 const audio_explosion = new Audio("assets/sound/explosion.mp3"),
     divVoitures = document.getElementById('voitures'),
     divDifficultes = document.getElementById('difficultes');
+    divLoading = document.getElementById('loading');
 
 let canvas = document.querySelector('canvas'),
     img = new Image(),
@@ -57,8 +58,8 @@ if (window.innerWidth < 1400) {
     img.src = 'assets/canvas/bg-default-2.png';
 
     function voitureClientX() {
-        if (clientX < 150 + (window.innerWidth - canvas.width)/2) return 150 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
-        else if (clientX > 1500 + (window.innerWidth - canvas.width)/2) return 1500 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
+        if (clientX < 200 + (window.innerWidth - canvas.width)/2) return 200 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
+        else if (clientX > 1400 + (window.innerWidth - canvas.width)/2) return 1400 + (window.innerWidth - canvas.width)/2 - 128 - (window.innerWidth - canvas.width)/2;
         else return clientX - 128 - (window.innerWidth - canvas.width)/2;
     }
 }
@@ -222,6 +223,8 @@ function perdu() {
     divDifficultes.style.display='flex';
     gamePlaying = false;
 }
+
+setTimeout(() => {divLoading.style.display='none'}, 3000);
 
 
 img.onload = render;

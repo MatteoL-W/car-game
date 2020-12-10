@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
+    font-family: 'Russo One', sans-serif;
 }
 
 html {
@@ -28,18 +29,26 @@ canvas {
 }
 
 #voitures {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
     position: absolute;
     top: 270px;
-    left: calc(50% - 600px);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #voitures img {
-    width: 200px;
+    width: 180px;
+    border: 2px solid white;
+    border-radius: 10%;
+
 }
 
 #difficultes {
     position: absolute;
-    top: 550px;
+    top: 600px;
     left: calc(50% - 250px);
     align-items: center;
     display: flex;
@@ -50,4 +59,76 @@ canvas {
 #difficultes input {
     font-size: 2rem;
     padding: 10px;
+    background-color: #282525;
+    border: 0;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10%;
+}
+
+#loading {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #595b57;
+    animation: deplacement 3s;
+    z-index: 6;
+}
+
+#blackViper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    animation: loadingAnim 3s;
+    transform: rotate(45deg);
+    z-index: 2;
+}
+
+#traine {
+    animation: loadingTraine 3s;
+    position: absolute;
+    top: 110%;
+    left: -10%;
+    width: 150px;
+    height: 400px;
+    background: linear-gradient(#595b57, #ca5211, #ca5211, #595b57);
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+@keyframes loadingAnim {
+    from {
+        top: 100%;
+        left: 0;
+    }
+    to {
+        top: -35%;
+        left: 100%;
+    }
+}
+
+
+@keyframes loadingTraine {
+    from {
+        top: 110%;
+        left: -6%;
+    }
+    to {
+        top: -40%;
+        left: 100%;
+    }
+}
+
+@keyframes deplacement {
+    25% {
+        transform: translateX(0) translateY(0);
+    }
+    to {
+        transform: translateX(100%) translateY(-100%);
+    }
+}
+
+#voitures img:hover {
+    background-color: #70a64d;
 }
